@@ -9,7 +9,7 @@ USE rutinitas_coffee_db;
 CREATE TABLE IF NOT EXISTS Pelanggan (
     id_pelanggan VARCHAR(10) PRIMARY KEY,
     nama_pelanggan VARCHAR(50) NOT NULL,
-    nomor_telepon VARCHAR(15),
+    nomor_telepon VARCHAR(15)
 );
 
 CREATE TABLE IF NOT EXISTS Kasir (
@@ -81,7 +81,7 @@ USE rutinitas_coffee_db;
 CREATE TABLE IF NOT EXISTS Pelanggan (
     id_pelanggan VARCHAR(10) PRIMARY KEY,
     nama_pelanggan VARCHAR(50) NOT NULL,
-    nomor_telepon VARCHAR(15),
+    nomor_telepon VARCHAR(15)
 );
 
 CREATE TABLE IF NOT EXISTS Kasir (
@@ -170,7 +170,7 @@ INSERT INTO Bahan_Baku VALUES
 ('BB003', 'Sirup Butterscotch', 'Sirup', 2, 'Botol', 'Supplier C');
 
 INSERT INTO Pesanan 
-(id_pesanan, id_pelanggan, id_kasir, tanggal_pesanan, total_harga, metode_pembayaran) 
+(id_pesanan, id_pelanggan, id_kasir, tanggal_waktu, total_keseluruhan, metode_pembayaran) 
 VALUES
 ('TRX001', 'PLG001', 'KSR001', '2026-10-16 08:01:00', 18000, 'QRIS'),
 ('TRX002', 'PLG002', 'KSR001', '2026-10-16 08:12:00', 30000, 'QRIS');
