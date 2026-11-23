@@ -20,20 +20,22 @@ CREATE TABLE pengguna (
 );
 
 CREATE TABLE menu (
-    id_menu   INT AUTO_INCREMENT PRIMARY KEY,
-    nama_menu VARCHAR(50) NOT NULL,
-    kategori  VARCHAR(30) NOT NULL,
-    harga     DECIMAL(10,2) NOT NULL CHECK (harga >= 0)
+    id_menu             INT AUTO_INCREMENT PRIMARY KEY,
+    nama_menu           VARCHAR(50) NOT NULL,
+    kategori            VARCHAR(30) NOT NULL,
+    harga               DECIMAL(10,2) NOT NULL CHECK (harga >= 0),
+    status_ketersediaan ENUM('Tersedia','Habis') NOT NULL DEFAULT 'Tersedia'
 );
 
 CREATE TABLE bahan_baku (
-    id_bahan     INT AUTO_INCREMENT PRIMARY KEY,
-    nama_bahan   VARCHAR(50) NOT NULL,
-    kategori     VARCHAR(30),
-    stok         DECIMAL(10,2) NOT NULL CHECK (stok >= 0),
-    stok_minimum DECIMAL(10,2) NOT NULL DEFAULT 0,
-    satuan       VARCHAR(15) NOT NULL,
-    vendor       VARCHAR(50)
+    id_bahan           INT AUTO_INCREMENT PRIMARY KEY,
+    nama_bahan         VARCHAR(50) NOT NULL,
+    kategori           VARCHAR(30),
+    stok               DECIMAL(10,2) NOT NULL CHECK (stok >= 0),
+    stok_minimum       DECIMAL(10,2) NOT NULL DEFAULT 0,
+    satuan             VARCHAR(15) NOT NULL,
+    vendor             VARCHAR(50),
+    tanggal_kadaluarsa DATE NULL
 );
 
 CREATE TABLE pesanan (
@@ -81,16 +83,16 @@ INSERT INTO pengguna (nama, username, password, role) VALUES
 ('Manajer Shift',   'manajer',  '$2y$10$bRTJMFR8lsf/ZcdcOy0Np.c6LgN2ltrP/6/xm7JsiH/oHk2q/b23a',  'manajer'),
 ('Karyawan Kasir',  'karyawan', '$2y$10$jGKz9ua.rBjrQ/KYPk52O.Ff/oWvjcIZ0xyZuuzoOu4VdLUoeJkIS', 'karyawan');
 
-INSERT INTO menu (nama_menu, kategori, harga) VALUES
-('Butterscotch Coffee', 'Coffee',     18000),
-('Cona Coffee',         'Coffee',     15000),
-('Berry Coffee',        'Coffee',     18000),
-('Chocolate',           'Non-Coffee', 16000);
+INSERT INTO menu (nama_menu, kategori, harga, status_ketersediaan) VALUES
+('Butterscotch Coffee', 'Coffee',     18000, 'Tersedia'),
+('Cona Coffee',         'Coffee',     15000, 'Tersedia'),
+('Berry Coffee',        'Coffee',     18000, 'Tersedia'),
+('Chocolate',           'Non-Coffee', 16000, 'Tersedia');
 
-INSERT INTO bahan_baku (nama_bahan, kategori, stok, stok_minimum, satuan, vendor) VALUES
-('Espresso Blend Beans', 'Biji Kopi', 5, 2,  'Kg',       'Supplier A'),
-('Fresh Milk',           'Susu',      8, 10, 'Kotak 1L', 'Supplier B'),
-('Sirup Butterscotch',   'Sirup',     2, 1,  'Botol',    'Supplier C');
+INSERT INTO bahan_baku (nama_bahan, kategori, stok, stok_minimum, satuan, vendor, tanggal_kadaluarsa) VALUES
+('Espresso Blend Beans', 'Biji Kopi', 5, 2,  'Kg',       'Supplier A', '2027-06-30'),
+('Fresh Milk',           'Susu',      8, 10, 'Kotak 1L', 'Supplier B', '2026-12-10'),
+('Sirup Butterscotch',   'Sirup',     2, 1,  'Botol',    'Supplier C', '2027-03-15');
 
 -- Contoh pesanan (tanggal hari ini agar dashboard dan laporan langsung terisi)
 INSERT INTO pesanan (id_pengguna, nama_pelanggan, tanggal, mode_layanan, metode_pembayaran, total) VALUES
